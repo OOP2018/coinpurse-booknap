@@ -1,18 +1,18 @@
 package coinpurse;
- 
-//TODO import List, ArrayList, and Collections
-// You will use Collections.sort() to sort the coins
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *  A coin purse contains coins.
  *  You can insert coins, withdraw money, check the balance,
  *  and check if the purse is full.
  *  
- *  @author your name
+ *  @author Napasai Sutthichutipong
  */
 public class Purse {
     /** Collection of objects in the purse. */
-    //TODO declare a List of Coins named "money".
+	List<Coin> money = new ArrayList<Coin>();
     
     /** Capacity is maximum number of items the purse can hold.
      *  Capacity is set when the purse is created and cannot be changed.
@@ -24,7 +24,8 @@ public class Purse {
      *  @param capacity is maximum number of coins you can put in purse.
      */
     public Purse( int capacity ) {
-
+    	this.capacity = capacity;
+    	money = new ArrayList<>(capacity);
     }
 
     /**
@@ -32,14 +33,22 @@ public class Purse {
      * This is the number of coins, not their value.
      * @return the number of coins in the purse
      */
-    public int count() { return 0; }
+    public int count() { 
+		int count = 0;
+		for (Coin x : money)
+			count++;
+		return count;
+    }
     
     /** 
      *  Get the total value of all items in the purse.
      *  @return the total value of items in the purse.
      */
     public double getBalance() {
-		return 0.0; 
+		double total = 0;
+		for (Coin x : money)
+			total += x.getValue();
+		return total;
 	}
 
     
@@ -47,9 +56,8 @@ public class Purse {
      * Return the capacity of the coin purse.
      * @return the capacity
      */
-    //TODO write accessor method for capacity. Use Java naming convention.
     public int getCapacity() { 
-		return 0; 
+		return capacity; 
 	}
     
     /** 
@@ -59,8 +67,10 @@ public class Purse {
      *  @return true if purse is full.
      */
     public boolean isFull() {
-        //TODO complete this method. Avoid writing duplicate code (Don't Repeat Yourself).
-        return false;
+		if (this.count() >= this.capacity)
+			return true;
+		else
+			return false;
     }
 
     /** 
@@ -71,9 +81,11 @@ public class Purse {
      * @return true if coin inserted, false if can't insert
      */
     public boolean insert( Coin coin ) {
-        // if the purse is already full then can't insert anything.
-        //TODO complete the insert method
-        return false;
+		if (!this.isFull() && coin.getValue() > 0) {
+			money.add(coin);
+			return true;
+		} else
+			return false;
     }
     
     /**  
@@ -125,9 +137,7 @@ public class Purse {
      * It can return whatever is a useful description.
      */
     public String toString() {
-        //TODO complete this
-    	return "you forgot to write Purse.toString()";
+    	return String.format("This purse have %d coins with value %.2f", money.size(), this.getBalance());
     }
 
 }
-//TODO When you finish, there should not be any TODO comments, including this one!
