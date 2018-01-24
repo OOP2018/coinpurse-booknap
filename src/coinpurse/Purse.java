@@ -1,6 +1,7 @@
 package coinpurse;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public class Purse {
     /** Collection of objects in the purse. */
-	List<Coin> money = new ArrayList<Coin>();
+	private List<Coin> money;
     
     /** Capacity is maximum number of items the purse can hold.
      *  Capacity is set when the purse is created and cannot be changed.
@@ -25,7 +26,7 @@ public class Purse {
      */
     public Purse( int capacity ) {
     	this.capacity = capacity;
-    	money = new ArrayList<>(capacity);
+    	money = new ArrayList<Coin>();
     }
 
     /**
@@ -34,10 +35,7 @@ public class Purse {
      * @return the number of coins in the purse
      */
     public int count() { 
-		int count = 0;
-		for (Coin x : money)
-			count++;
-		return count;
+		return money.size();
     }
     
     /** 
@@ -97,7 +95,7 @@ public class Purse {
 	 *    or null if cannot withdraw requested amount.
      */
     public Coin[] withdraw( double amount ) {
-        //TODO don't allow to withdraw amount < 0
+    	
         
 	   /*
 		* See lab sheet for outline of a solution, 
@@ -114,22 +112,26 @@ public class Purse {
 		* from the money list, and return the temporary
 		* list (as an array).
 		*/
-		
-		// Did we get the full amount?
-		// This code assumes you decrease amount each time you remove a coin.
-    	// Your code might use some other variable for the remaining amount to withdraw.
-		if ( amountNeededToWithdraw != 0 )
-		{	
-			// failed. Don't change the contents of the purse.
-			
+		List<Coin> list = new ArrayList<Coin>();
+		if (amount < 0)
+			return null;
+		Collections.sort(money);
+		Collections.reverse(money);
+		double amountNeededToWithdraw = amount;
+		for (Coin x : money) {
+			if (amountNeededToWithdraw >= x.getValue()) {
+				list.add(x);
+				amountNeededToWithdraw -= x.getValue();
+			}
+			if (amountNeededToWithdraw == 0)
+				break;
 		}
-
-		// Success.
-		// Remove the coins you want to withdraw from purse,
-		// and return them as an array.
-		// Use list.toArray( array[] ) to copy a list into an array.
-		// toArray returns a reference to the array itself.
-        return new Coin[0]; //TODO replace this with real code
+		if (amountNeededToWithdraw != 0)
+			return null;
+		for (Coin y : list)
+			money.remove(y);
+		Coin[] array = new Coin[list.size()];
+		return list.toArray(array);
 	}
   
     /** 

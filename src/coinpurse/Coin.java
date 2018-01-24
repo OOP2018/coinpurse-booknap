@@ -1,6 +1,6 @@
 package coinpurse;
 
-public class Coin {
+public class Coin implements Comparable<Coin> {
 
 	private double value;
 	private String currency;
