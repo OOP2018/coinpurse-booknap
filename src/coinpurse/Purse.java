@@ -70,7 +70,7 @@ public class Purse {
 		else
 			return false;
     }
-
+    
     /** 
      * Insert a coin into the purse.
      * The coin is only inserted if the purse has space for it
@@ -95,7 +95,6 @@ public class Purse {
 	 *    or null if cannot withdraw requested amount.
      */
     public Coin[] withdraw( double amount ) {
-    	
         
 	   /*
 		* See lab sheet for outline of a solution, 
@@ -113,23 +112,19 @@ public class Purse {
 		* list (as an array).
 		*/
 		List<Coin> list = new ArrayList<Coin>();
-		if (amount < 0)
-			return null;
+		
+		if (amount < 0) return null;
 		Collections.sort(money);
 		Collections.reverse(money);
-		double amountNeededToWithdraw = amount;
 		for (Coin x : money) {
-			if (amountNeededToWithdraw >= x.getValue()) {
+			if (amount >= x.getValue()) {
 				list.add(x);
-				amountNeededToWithdraw -= x.getValue();
+				amount -= x.getValue();
 			}
-			if (amountNeededToWithdraw == 0)
-				break;
+			if (amount == 0) break;
 		}
-		if (amountNeededToWithdraw != 0)
-			return null;
-		for (Coin y : list)
-			money.remove(y);
+		if (amount != 0) return null;
+		for (Coin y : list) money.remove(y);
 		Coin[] array = new Coin[list.size()];
 		return list.toArray(array);
 	}
