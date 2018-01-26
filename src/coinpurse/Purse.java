@@ -95,23 +95,7 @@ public class Purse {
 	 *    or null if cannot withdraw requested amount.
      */
     public Coin[] withdraw( double amount ) {
-        
-	   /*
-		* See lab sheet for outline of a solution, 
-		* or devise your own solution.
-		* The idea is to be greedy.
-		* Try to withdraw the largest coins possible.
-		* Each time you choose a coin as a candidate for
-		* withdraw, add it to a temporary list and
-		* decrease the amount (remainder) to withdraw.
-		* 
-		* If you reach a point where amountNeededToWithdraw == 0
-		* then you found a solution!
-		* Now, use the temporary list to remove coins
-		* from the money list, and return the temporary
-		* list (as an array).
-		*/
-		List<Coin> list = new ArrayList<Coin>();
+        List<Coin> list = new ArrayList<Coin>();
 		
 		if (amount < 0) return null;
 		Collections.sort(money);
