@@ -46,6 +46,8 @@ public class MoneyUtil{
 		List<Valuable> valuable = new ArrayList<Valuable>();
 		valuable.add(new Coin(10.0,"Baht"));
 		valuable.add(new Coin(8.0,"Baht"));
+		valuable.add(new Coin(30.5,"USD"));
+		valuable.add(new BankNote(10.0,"USD"));
 		valuable.add(new Coin(24.5,"Baht"));
 		valuable.add(new Coin(5.0,"Baht"));
 		valuable.add(new BankNote(20.0,"Baht"));

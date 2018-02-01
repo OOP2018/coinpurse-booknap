@@ -22,8 +22,7 @@ public class ValueComparator implements Comparator<Valuable> {
 			if (a.getValue() < b.getValue()) return -1;
 			else if (a.getValue() > b.getValue()) return 1;
 			else if (a.getValue() == b.getValue()) return 0;
-		}
-		else if (a.getCurrency().contains("Baht")&&b.getCurrency().contains("Dollar")) return -1;
+		} else if (a.getCurrency().contains("Baht") && b.getCurrency().contains("USD")) return -1;
 		return 1;
 	}
 
