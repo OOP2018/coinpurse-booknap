@@ -2,6 +2,7 @@ package coinpurse;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class MoneyUtil{
@@ -10,8 +11,8 @@ public class MoneyUtil{
 	 * Print all coins on the list.
 	 * @param coins list
 	 */
-	public static void printCoins(List<Coin> coins) {
-		for (Coin x : coins) {
+	public static void printValuable(List<Valuable> valuable) {
+		for (Valuable x : valuable) {
 			System.out.println(x);
 		}
 	}
@@ -20,8 +21,9 @@ public class MoneyUtil{
 	 * Sort the coins.
 	 * @param coins list
 	 */
-	public static void sortCoins(List<Coin> coins) {
-		Collections.sort(coins);
+	public static void sortValuable(List<Valuable> valuable) {
+		Comparator<Valuable> comp = new ValueComparator();
+		Collections.sort(valuable,comp);
 	}
 	
 	/**
@@ -30,9 +32,9 @@ public class MoneyUtil{
 	 * @param coins currency
 	 * @return list of coins
 	 */
-	public static List<Coin> filterByCurrency(List<Coin> coins, String currency) {
-		List<Coin> list = new ArrayList<Coin>();
-		for (Coin x : coins) {
+	public static List<Valuable> filterByCurrency(List<Valuable> money, String currency) {
+		List<Valuable> list = new ArrayList<Valuable>();
+		for (Valuable x : money) {
 			if (x.getCurrency().equals(currency)) {
 				list.add(x);
 			}
@@ -41,15 +43,17 @@ public class MoneyUtil{
 	}
 	
 	public static void main(String[] args) {	
-		List<Coin> coins = new ArrayList<Coin>();
-		coins.add(new Coin(10.0,"Baht"));
-		coins.add(new Coin(24.0,"Baht"));
-		coins.add(new Coin(4.5,"Yen"));
-		coins.add(new Coin(7.5,"USD"));	
-		printCoins(coins);
-		sortCoins(coins);
+		List<Valuable> valuable = new ArrayList<Valuable>();
+		valuable.add(new Coin(10.0,"Baht"));
+		valuable.add(new Coin(8.0,"Baht"));
+		valuable.add(new Coin(24.5,"Baht"));
+		valuable.add(new Coin(5.0,"Baht"));
+		valuable.add(new BankNote(20.0,"Baht"));
+		valuable.add(new BankNote(5.0,"USD"));
+		printValuable(valuable);
+		sortValuable(valuable);
 		System.out.println("Sorted");
-		printCoins(coins);
+		printValuable(valuable);
 	}
 	
 }

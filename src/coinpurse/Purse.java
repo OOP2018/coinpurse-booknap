@@ -2,18 +2,19 @@ package coinpurse;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
- *  A coin purse contains coins.
- *  You can insert coins, withdraw money, check the balance,
+ *  A purse contains valuable.
+ *  You can insert valuable, withdraw money, check the balance,
  *  and check if the purse is full.
  *  
  *  @author Napasai Sutthichutipong
  */
 public class Purse {
     /** Collection of objects in the purse. */
-	private List<Coin> money;
+	private List<Valuable> money;
     
     /** Capacity is maximum number of items the purse can hold.
      *  Capacity is set when the purse is created and cannot be changed.
@@ -22,17 +23,17 @@ public class Purse {
     
     /** 
      *  Create a purse with a specified capacity.
-     *  @param capacity is maximum number of coins you can put in purse.
+     *  @param capacity is maximum number of valuables you can put in purse.
      */
     public Purse( int capacity ) {
     	this.capacity = capacity;
-    	money = new ArrayList<Coin>();
+    	money = new ArrayList<Valuable>();
     }
 
     /**
-     * Count and return the number of coins in the purse.
-     * This is the number of coins, not their value.
-     * @return the number of coins in the purse
+     * Count and return the number of valuables in the purse.
+     * This is the number of valuables, not their value.
+     * @return the number of valuables in the purse
      */
     public int count() { 
 		return money.size();
@@ -44,14 +45,14 @@ public class Purse {
      */
     public double getBalance() {
 		double total = 0;
-		for (Coin x : money)
+		for (Valuable x : money)
 			total += x.getValue();
 		return total;
 	}
 
     
     /**
-     * Return the capacity of the coin purse.
+     * Return the capacity of the purse.
      * @return the capacity
      */
     public int getCapacity() { 
@@ -72,15 +73,15 @@ public class Purse {
     }
     
     /** 
-     * Insert a coin into the purse.
-     * The coin is only inserted if the purse has space for it
-     * and the coin has positive value.  No worthless coins!
-     * @param coin is a Coin object to insert into purse
+     * Insert a valuable into the purse.
+     * The valuable is only inserted if the purse has space for it
+     * and the valuable has positive value.  No worthless coins!
+     * @param valuable is a Valuable object to insert into purse
      * @return true if coin inserted, false if can't insert
      */
-    public boolean insert( Coin coin ) {
-		if (!this.isFull() && coin.getValue() > 0) {
-			money.add(coin);
+    public boolean insert( Valuable valuable ) {
+		if (!this.isFull() && valuable.getValue() > 0) {
+			money.add(valuable);
 			return true;
 		} else
 			return false;
@@ -88,19 +89,20 @@ public class Purse {
     
     /**  
      *  Withdraw the requested amount of money.
-     *  Return an array of Coins withdrawn from purse,
+     *  Return an array of Valuables withdrawn from purse,
      *  or return null if cannot withdraw the amount requested.
      *  @param amount is the amount to withdraw
-     *  @return array of Coin objects for money withdrawn, 
+     *  @return array of Valuable objects for money withdrawn, 
 	 *    or null if cannot withdraw requested amount.
      */
-    public Coin[] withdraw( double amount ) {
-        List<Coin> list = new ArrayList<Coin>();
+    public Valuable[] withdraw( double amount ) {
+    	Comparator<Valuable> comp = new ValueComparator();
+        List<Valuable> list = new ArrayList<Valuable>();
 		
 		if (amount < 0) return null;
-		Collections.sort(money);
+		Collections.sort(money,comp);
 		Collections.reverse(money);
-		for (Coin x : money) {
+		for (Valuable x : money) {
 			if (amount >= x.getValue()) {
 				list.add(x);
 				amount -= x.getValue();
@@ -108,8 +110,8 @@ public class Purse {
 			if (amount == 0) break;
 		}
 		if (amount != 0) return null;
-		for (Coin y : list) money.remove(y);
-		Coin[] array = new Coin[list.size()];
+		for (Valuable y : list) money.remove(y);
+		Valuable[] array = new Valuable[list.size()];
 		return list.toArray(array);
 	}
   
@@ -118,7 +120,7 @@ public class Purse {
      * It can return whatever is a useful description.
      */
     public String toString() {
-    	return String.format("This purse have %d coins with value %.2f", money.size(), this.getBalance());
+    	return String.format("This purse have %d valuables with value %.2f", money.size(), this.getBalance());
     }
 
 }

@@ -1,6 +1,11 @@
 package coinpurse;
 
-public class Coin implements Comparable<Coin> {
+/**
+ * Coin represents money with a fixed value and currency.
+ * @author Napasai Sutthichutipong
+ *
+ */
+public class Coin implements Valuable {
 
 	private double value;
 	private String currency;
@@ -21,6 +26,7 @@ public class Coin implements Comparable<Coin> {
 	 * Get value of the coin. 
 	 * @return value
 	 */
+	@Override
 	public double getValue() {
 		return value;
 	}
@@ -29,6 +35,7 @@ public class Coin implements Comparable<Coin> {
 	 * Get currency of the coin. 
 	 * @return currency
 	 */
+	@Override
 	public String getCurrency() {
 		return currency;
 	}
@@ -43,7 +50,7 @@ public class Coin implements Comparable<Coin> {
 		if (arg.getClass() != this.getClass())
 			return false;
 		Coin x = (Coin) arg;
-		return this.value == x.value && this.currency == x.currency;
+		return this.value == x.value && this.currency.equals(x.currency);
 	}
 
 	/**
