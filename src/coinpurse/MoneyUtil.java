@@ -45,6 +45,7 @@ public class MoneyUtil{
 	public static void main(String[] args) {	
 		List<Valuable> valuable = new ArrayList<Valuable>();
 		valuable.add(new Coin(10.0,"Baht"));
+		valuable.add(new BankNote(100.0,"Yen"));
 		valuable.add(new Coin(8.0,"Baht"));
 		valuable.add(new Coin(30.5,"USD"));
 		valuable.add(new BankNote(10.0,"USD"));
@@ -52,6 +53,11 @@ public class MoneyUtil{
 		valuable.add(new Coin(5.0,"Baht"));
 		valuable.add(new BankNote(20.0,"Baht"));
 		valuable.add(new BankNote(5.0,"USD"));
+		valuable.add(new BankNote(0.5,"Yen"));
+		valuable.add(new Coin(1.0,"Yen"));
+		valuable.add(new Coin(50.0,"Won"));
+		valuable.add(new Coin(100.0,"Won"));
+
 		printValuable(valuable);
 		sortValuable(valuable);
 		System.out.println("Sorted");

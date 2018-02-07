@@ -20,6 +20,7 @@ public class Purse {
      *  Capacity is set when the purse is created and cannot be changed.
      */
     private final int capacity;
+    private Comparator<Valuable> comp = new ValueComparator();
     
     /** 
      *  Create a purse with a specified capacity.
@@ -96,9 +97,7 @@ public class Purse {
 	 *    or null if cannot withdraw requested amount.
      */
     public Valuable[] withdraw( double amount ) {
-    	Comparator<Valuable> comp = new ValueComparator();
         List<Valuable> list = new ArrayList<Valuable>();
-		
 		if (amount < 0) return null;
 		Collections.sort(money,comp);
 		Collections.reverse(money);
