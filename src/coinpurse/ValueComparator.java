@@ -19,11 +19,14 @@ public class ValueComparator implements Comparator<Valuable> {
 	@Override
 	public int compare(Valuable a, Valuable b) {
 		if (a.getCurrency().equals(b.getCurrency())) {
-			if (a.getValue() < b.getValue()) return -1;
-			else if (a.getValue() > b.getValue()) return 1;
-			else if (a.getValue() == b.getValue()) return 0;
-		} else if (a.getCurrency().compareToIgnoreCase(b.getCurrency())<0) return -1;
-		return 1;
+			if (a.getValue() < b.getValue())
+				return -1;
+			else if (a.getValue() > b.getValue())
+				return 1;
+			else if (a.getValue() == b.getValue())
+				return 0;
+		}
+		return a.getCurrency().compareToIgnoreCase(b.getCurrency());
 	}
 
 }
