@@ -105,26 +105,7 @@ public class Purse {
 	 *         withdraw requested amount.
 	 */
 	public Valuable[] withdraw(double amount) {
-		List<Valuable> list = new ArrayList<Valuable>();
-		double amountNeededToWithdraw = amount;
-		if (amountNeededToWithdraw < 0 || amountNeededToWithdraw > getBalance())
-			return null;
-		Collections.sort(money, comp);
-		Collections.reverse(money);
-		for (Valuable x : money) {
-			if (amountNeededToWithdraw >= x.getValue()) {
-				list.add(x);
-				amountNeededToWithdraw -= x.getValue();
-			}
-			if (amountNeededToWithdraw == 0)
-				break;
-		}
-		if (amountNeededToWithdraw != 0)
-			return null;
-		for (Valuable y : list)
-			money.remove(y);
-		Valuable[] array = new Valuable[list.size()];
-		return list.toArray(array);
+		return withdraw(new Money(amount,"Baht"));
 	}
 
 	/**
@@ -140,9 +121,9 @@ public class Purse {
 	public Valuable[] withdraw(Valuable amount) {
 		List<Valuable> list1 = new ArrayList<Valuable>();
 		List<Valuable> list2 = new ArrayList<Valuable>();
-		double amountNeededToWithdraw = amount.getValue();
-		if (amountNeededToWithdraw < 0 || amountNeededToWithdraw > getBalance())
+		if (amount.getValue() <= 0 || amount.getValue() > getBalance() || amount == null)
 			return null;
+		double amountNeededToWithdraw = amount.getValue();
 		Collections.sort(money, comp);
 		Collections.reverse(money);
 		for (Valuable x : money) {
