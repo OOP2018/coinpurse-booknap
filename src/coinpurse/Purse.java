@@ -80,11 +80,11 @@ public class Purse {
 	/**
 	 * Insert a valuable into the purse. The valuable is only inserted if the
 	 * purse has space for it and the valuable has positive value. No worthless
-	 * coins!
+	 * valuables!
 	 * 
 	 * @param valuable
 	 *            is a Valuable object to insert into purse
-	 * @return true if coin inserted, false if can't insert
+	 * @return true if valuable inserted, false if can't insert
 	 */
 	public boolean insert(Valuable valuable) {
 		if (!this.isFull() && valuable.getValue() > 0) {
