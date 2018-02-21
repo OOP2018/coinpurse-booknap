@@ -1,5 +1,10 @@
 package coinpurse;
 
+/**
+ * 
+ * @author Napasai Sutthichutipong
+ *
+ */
 public class Money implements Valuable{
 
 	protected double value;

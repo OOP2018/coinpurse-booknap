@@ -23,7 +23,7 @@ import org.junit.Test;
 public class PurseTest {
 	/** tolerance for comparing two double values */
 	private static final double TOL = 1.0E-6;
-	private static final String CURRENCY = "BTC";
+	private static final String CURRENCY = "Baht";
 	
     /**
      * Sets up the test fixture.
@@ -41,7 +41,7 @@ public class PurseTest {
     
     /** Make a bank note with the default currency. */
     private Valuable makeBankNote(double value){
-    	return new BankNote(value,CURRENCY);
+    	return new BankNote(value,CURRENCY,1000000);
     }
 
     /** Easy test that the Purse constructor is working. */
@@ -78,7 +78,7 @@ public class PurseTest {
     public void testInsertNoValue()
     {
         Purse purse = new Purse(3);
-        Valuable fakeCoin = new BankNote(0, CURRENCY);
+        Valuable fakeCoin = new Coin(0, CURRENCY);
         assertFalse( purse.insert(fakeCoin) );
     }
 

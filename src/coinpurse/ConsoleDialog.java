@@ -2,6 +2,8 @@ package coinpurse;
  
 import java.util.Scanner;
 
+import sun.security.x509.SerialNumber;
+
 /** 
  * User Interface for the Coin Purse. 
  * This class provides simple interactive dialog for inserting
@@ -17,6 +19,8 @@ public class ConsoleDialog {
     final String FULL_PROMPT = "\nEnter d (deposit), w (withdraw), ? (inquiry), or q (quit): ";
     // Shorter prompt shown subsequently
     final String SHORT_PROMPT = "\nEnter d, w, ?, or q: ";
+    
+    private MoneyFactory factory = MoneyFactory.getInstance();
     
 	// The dialog receives a Purse object by dependency injection (as parameter to constructor)
     // so don't create a Purse here.
@@ -83,6 +87,7 @@ public class ConsoleDialog {
         while( scanline.hasNextDouble() ) {
             double value = scanline.nextDouble();
             Valuable valuable = makeMoney(value);
+            if(valuable == null) continue;
             System.out.printf("Deposit %s... ", valuable.toString() );
             boolean ok = purse.insert(valuable);
             System.out.println( (ok? "ok" : "FAILED") );
@@ -125,8 +130,13 @@ public class ConsoleDialog {
     
     /** Make a Coin (or BankNote or whatever) using requested value. */
     private Valuable makeMoney(double value) {
-		if (value < 20) return new Coin(value, CURRENCY);
-    	return new BankNote(value, CURRENCY);
+		Valuable valuable = null;
+		try {
+			valuable = factory.createMoney(value);
+		} catch (IllegalArgumentException ex) {
+			System.out.println("Sorry, " + value + " is not a valid amount.");
+		}
+		return valuable;
     }
 
 }

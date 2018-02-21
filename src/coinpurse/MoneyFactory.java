@@ -1,14 +1,19 @@
 package coinpurse;
 
+/**
+ * 
+ * @author Napasai Sutthichutipong
+ *
+ */
 public abstract class MoneyFactory {
 
-	private static MoneyFactory instance;
+	private static MoneyFactory factory;
 
 	public static MoneyFactory getInstance() {
-		if (instance == null) {
-			return ThaiMoneyFactory.getInstance();
+		if (factory == null) {
+			factory = new ThaiMoneyFactory();
 		}
-		return instance;
+		return factory;
 	}
 
 	public abstract Valuable createMoney(double value);
@@ -18,13 +23,13 @@ public abstract class MoneyFactory {
 		try {
 			val = Double.parseDouble(value);
 		} catch (IllegalArgumentException ex) {
-			ex.getMessage();
+			System.out.println(ex.getMessage());
 		}
 		return createMoney(val);
 	}
 
-	public static void setFactory(MoneyFactory f) {
-		instance = f;
+	public static void setFactory(MoneyFactory mf) {
+		factory = mf;
 	}
 
 }
