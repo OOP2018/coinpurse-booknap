@@ -1,7 +1,7 @@
 package coinpurse;
 
 /**
- * 
+ * Money class with fixed value and currency.
  * @author Napasai Sutthichutipong
  *
  */
@@ -45,7 +45,7 @@ public class Money implements Valuable{
 	public boolean equals(Object arg) {
 		if (arg == null) return false;
 		if (arg.getClass() != this.getClass()) return false;
-		Valuable x = (Valuable) arg;
+		Money x = (Money) arg;
 		return this.getValue() == x.getValue() && this.getCurrency().equals(x.getCurrency());
 	}
 
@@ -57,9 +57,9 @@ public class Money implements Valuable{
 	 */
 	@Override
 	public int compareTo(Valuable arg) {
-		if (this.getValue() < arg.getValue()) return -1;
-		else if (this.getValue() > arg.getValue()) return 1;
-		return 0;
+		if (this.getCurrency().equals(arg.getCurrency())) 
+			return Double.compare(this.getValue(), arg.getValue());
+		return this.getCurrency().compareToIgnoreCase(arg.getCurrency());
 	}
 
 }

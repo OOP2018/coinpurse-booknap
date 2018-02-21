@@ -21,7 +21,11 @@ public class Coin extends Money {
 	 * @return value and currency of the coin.
 	 */
 	public String toString() {
+		if (this.getCurrency().equals("Ringgit") && this.getValue() < 1) {
+			return String.format("%.2f-Sen", this.getValue() * 100);
+		}
 		return String.format("%.2f-%s", this.getValue(), this.getCurrency());
 	}
-
 }
+
+

@@ -1,7 +1,7 @@
 package coinpurse;
 
 /**
- * 
+ * This class use to test MoneyFactory.
  * @author Napasai Sutthichutipong
  *
  */

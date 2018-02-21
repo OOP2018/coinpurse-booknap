@@ -7,7 +7,7 @@ package coinpurse;
  */
 public class BankNote extends Money {
 
-	private long serialNumber;
+	private long serialNumber = 1000000;
 
 	/**
 	 * Constructor for initialize value and currency of the Bank notes.

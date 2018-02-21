@@ -1,7 +1,7 @@
 package coinpurse;
 
 /**
- * 
+ * This class use to create Malaysia's Money. 
  * @author Napasai Sutthichutipong
  *
  */
@@ -9,6 +9,11 @@ public class MalaiMoneyFactory extends MoneyFactory {
 
 	private static long serialNumber = 1000000;
 
+	/**
+	 * Create Malaysia's Money.
+	 * @param value
+	 * @return Coin or BankNote with "Ringgit" or "Sen" currency.
+	 */
 	@Override
 	public Valuable createMoney(double value) {
 		if (value <= 0)
