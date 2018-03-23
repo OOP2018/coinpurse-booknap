@@ -5,6 +5,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import coinpurse.strategy.GreedyWithdraw;
+import coinpurse.strategy.WithdrawStrategy;
+
 /**
  * A purse contains valuable. You can insert valuable, withdraw money, check the
  * balance, and check if the purse is full.
@@ -21,6 +24,7 @@ public class Purse {
 	 */
 	private final int capacity;
 	private Comparator<Valuable> comp = new ValueComparator();
+	private WithdrawStrategy strategy;
 
 	/**
 	 * Create a purse with a specified capacity.
@@ -29,6 +33,7 @@ public class Purse {
 	 *            is maximum number of valuables you can put in purse.
 	 */
 	public Purse(int capacity) {
+		strategy = new GreedyWithdraw();
 		this.capacity = capacity;
 		money = new ArrayList<Valuable>();
 	}
@@ -119,32 +124,9 @@ public class Purse {
 	 *         withdraw requested amount.
 	 */
 	public Valuable[] withdraw(Valuable amount) {
-		List<Valuable> list1 = new ArrayList<Valuable>();
-		List<Valuable> list2 = new ArrayList<Valuable>();
-		if (amount.getValue() <= 0 || amount.getValue() > getBalance() || amount == null)
-			return null;
-		double amountNeededToWithdraw = amount.getValue();
-		Collections.sort(money, comp);
-		Collections.reverse(money);
-		for (Valuable x : money) {
-			if (x.getCurrency().equals(amount.getCurrency())) {
-				list2.add(x);
-			}
-		}
-		for (Valuable y : list2) {
-			if (amountNeededToWithdraw >= y.getValue()) {
-				list1.add(y);
-				amountNeededToWithdraw -= y.getValue();
-			}
-			if (amountNeededToWithdraw == 0)
-				break;
-		}
-		if (amountNeededToWithdraw != 0)
-			return null;
-		for (Valuable y : list1)
-			money.remove(y);
-		Valuable[] array = new Valuable[list1.size()];
-		return list1.toArray(array);
+		List<Valuable> list = strategy.withdraw(amount, money);
+		Valuable[] array = new Valuable[list.size()];
+		return list.toArray(array);
 	}
 
 	/**
